@@ -1,7 +1,6 @@
 package com.myjar.jarassignment.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -9,15 +8,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.myjar.jarassignment.R
 import com.myjar.jarassignment.data.model.ComputerItem
+import com.myjar.jarassignment.databinding.ItemCardBinding
 
 class ItemAdapter(
     private val onItemClick: (ComputerItem) -> Unit
 ) : ListAdapter<ComputerItem, ItemAdapter.ItemViewHolder>(ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card, parent, false)
-        return ItemViewHolder(view)
+        val binding = ItemCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -25,12 +24,11 @@ class ItemAdapter(
         holder.bind(item, onItemClick)
     }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val itemName: TextView = itemView.findViewById(R.id.item_name)
+    class ItemViewHolder(private val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ComputerItem, onItemClick: (ComputerItem) -> Unit) {
-            itemName.text = item.name
-            itemView.setOnClickListener { onItemClick(item) }
+            binding.itemName.text = item.name
+            binding.root.setOnClickListener { onItemClick(item) }
         }
     }
 

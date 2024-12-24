@@ -11,6 +11,5 @@ fun createRetrofit(): ApiService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service: ApiService = retrofit.create(ApiService::class.java)
-    return service
+    return retrofit.create(ApiService::class.java)
 }
